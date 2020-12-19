@@ -32,9 +32,9 @@ public class Main {
         Reader_DIMACS_CNF reader_dimacs_cnf = new Reader_DIMACS_CNF("src/MiniProjet_1/DIMACS_CNF.txt");
         Reader_Affectation_variable readerAffectationVariable = new Reader_Affectation_variable("src/MiniProjet_1/Affectation_variable.txt");
         //Test si toutes les variables ont été initialisées
-//        System.out.println(areAllVariablesInit(reader_dimacs_cnf,readerAffectationVariable));
-//        readerAffectationVariable.afficherListVariableNValues();
-//        reader_dimacs_cnf.afficherListVar();
+        System.out.println(areAllVariablesInit(reader_dimacs_cnf,readerAffectationVariable));
+        readerAffectationVariable.afficherListVariableNValues();
+        reader_dimacs_cnf.afficherListVar();
 
     }
 
