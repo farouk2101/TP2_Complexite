@@ -15,10 +15,10 @@ public class Main {
             test2.add(test);
         }
         String path = "./src/MiniProjet_3/sudoku.txt";
-        ReadFile readFile = new ReadFile(path);
+        //ReadFile readFile = new ReadFile(path);
         //readFile.write(test2);
-        readFile.read();
-        System.out.println(readFile.getGrille().get(1));
+        //readFile.read();
+        SudokuToSat sudokuToSat = new SudokuToSat(path);
 
     }
 
