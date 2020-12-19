@@ -32,13 +32,9 @@ public class Main {
         BooleanValue bool = new BooleanValue(false);
         for(ArrayList<String> strArray : reader_dimacs_cnf.getVariableList()){
             for (String str : strArray){
-//                System.out.println(bool.getValue() + " OU " + evaluer(str,reader_affectation_variable).getValue());
                 bool = BooleanValue.Ou(bool,evaluer(str, reader_affectation_variable));
-//                bool.affiche();
             }
-//            System.out.println(eval.getValue() + " ET " + bool.getValue());
             eval = BooleanValue.Et(eval,bool);
-//            eval.affiche();
             bool.setValue(true);
 
         }
@@ -83,9 +79,13 @@ public class Main {
         Reader_Affectation_variable readerAffectationVariable = new Reader_Affectation_variable("src/MiniProjet_1/Affectation_variable.txt");
         BooleanValue booleanValue;
         //Test si toutes les variables ont été initialisées
-//        System.out.println(areAllVariablesInit(reader_dimacs_cnf,readerAffectationVariable));
-//        readerAffectationVariable.afficherListVariableNValues();
-//        reader_dimacs_cnf.afficherListVar();
+        /*System.out.println();
+        System.out.println(areAllVariablesInit(reader_dimacs_cnf,readerAffectationVariable));*/
+        System.out.println();
+        readerAffectationVariable.afficherListVariableNValues();
+        System.out.println();
+        /*reader_dimacs_cnf.afficherListVar();
+        System.out.println();*/
         booleanValue = evaluation(reader_dimacs_cnf,readerAffectationVariable);
         System.out.println(booleanValue.getValue());
 
