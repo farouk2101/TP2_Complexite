@@ -1,6 +1,7 @@
 package MiniProjet_1;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +12,8 @@ public class Reader_DIMACS_CNF {
     int nbClausePrev;
     int nbVarReal = 0;
     int nbClauseReal = 0;
-    ArrayList<Integer> variableList = new ArrayList<>();
+    ArrayList<Integer> literalList = new ArrayList<>();
+    ArrayList<ArrayList<String>> variableList = new ArrayList<>();
     ArrayList<String> listOfLines = new ArrayList<>();
 
     public Reader_DIMACS_CNF(String path){
@@ -41,6 +43,7 @@ public class Reader_DIMACS_CNF {
         for(String line : listOfLines){
             System.out.println(line);
         }
+        initVariableListFromFile();
     }
 
     public void getnbVarPrevFromFile() {
@@ -64,7 +67,7 @@ public class Reader_DIMACS_CNF {
             if(currentLine.charAt(i) == ' '){
                 int varReco = wichVarIsIt(currentVar);
                 if(!isAlreadyAdded(varReco)){
-                    variableList.add(varReco);
+                    literalList.add(varReco);
                 }
                 currentVar = "";
                 i++;
@@ -91,7 +94,7 @@ public class Reader_DIMACS_CNF {
     }
 
     public boolean isAlreadyAdded(int varToTest){
-        for(Integer integer : variableList){
+        for(Integer integer : literalList){
             if(varToTest == integer){
                 return true;
             }
@@ -100,7 +103,7 @@ public class Reader_DIMACS_CNF {
     }
 
     public void countnbVarRealFromFile(){
-        nbVarReal = variableList.size();
+        nbVarReal = literalList.size();
     }
 
     public void countnbClauseRealFromFile(String currentLine){
@@ -109,6 +112,51 @@ public class Reader_DIMACS_CNF {
                 nbClauseReal += 1;
             }
         }
+    }
+
+    public void initVariableListFromFile(){
+        try {
+            int nbLine = 0;
+            Scanner scannerGetVar = new Scanner(dimacsCNF);
+            String lineToGet = scannerGetVar.nextLine();
+            while (scannerGetVar.hasNextLine()){
+                lineToGet = scannerGetVar.nextLine();
+                addToVariableList(lineToGet);
+                nbLine++;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void addToVariableList(String currentLine){
+        int i = 0;
+        String currentVar = "";
+        ArrayList<String> arrTempo = new ArrayList<>();
+        while (currentLine.charAt(i) != '0'){
+            if(currentLine.charAt(i) == ' '){
+                arrTempo.add(currentVar);
+                currentVar = "";
+                i++;
+            }
+            else{
+                currentVar = currentVar + currentLine.charAt(i);
+                i++;
+            }
+        }
+        variableList.add(arrTempo);
+    }
+
+    public void afficherListVar(){
+        for(int i =0; i < variableList.size(); i++){
+            for(int j = 0; j < variableList.get(i).size(); j++){
+                System.out.println("Variable n°" + j + " ligne " + i + " = " + variableList.get(i).get(j));
+            }
+        }
+    }
+
+    public ArrayList<ArrayList<String>> getVariableList() {
+        return variableList;
     }
 
     public boolean isTheDocCorrect(){
@@ -134,8 +182,8 @@ public class Reader_DIMACS_CNF {
         return nbClauseReal;
     }
 
-    public ArrayList<Integer> getVariableList() {
-        return variableList;
+    public ArrayList<Integer> getLiteralList() {
+        return literalList;
     }
 
     public ArrayList<String> getListOfLines() {
