@@ -1,7 +1,6 @@
 package MiniProjet_2;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Graph {
@@ -101,7 +100,7 @@ public class Graph {
     private String printNodes() {
         String s = "[ ";
         for (int i=0; i<n; i++) {
-            for (int j=i; j<n; j++) {
+            for (int j=(directed ? 0 : i) ; j<n; j++) {
                 if (hasEdge(i, j)) {
                     s += "(" + i + "," + j + ") ";
                 }
