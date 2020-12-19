@@ -16,4 +16,8 @@ public class VarNValue {
     public boolean getValue() {
         return value.getValue();
     }
+
+    public void afficher(){
+        System.out.println("Variable : " + getVariable() + " Valeur : " + getValue());
+    }
 }

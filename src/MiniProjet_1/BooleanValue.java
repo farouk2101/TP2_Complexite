@@ -22,4 +22,12 @@ public class BooleanValue {
     public boolean getValue(){
         return this.value;
     }
+
+    public void setValue(boolean value) {
+        this.value = value;
+    }
+
+    public void affiche(){
+        System.out.println(this.value);
+    }
 }
