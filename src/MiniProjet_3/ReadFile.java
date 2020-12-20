@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class ReadFile {
@@ -37,6 +38,27 @@ public class ReadFile {
             wr.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void writeFile(ArrayList<String> satList, String newPath, int nbVar){
+        File file = new File(newPath);
+        file.delete();
+        try {
+            file.createNewFile();
+        }catch(IOException exception){
+            exception.printStackTrace();
+        }
+        Path path = Paths.get(newPath);
+        try{
+            Files.write(path, ("p cnf "+nbVar+" "+satList.size()+"\n").getBytes(), StandardOpenOption.APPEND);
+            for(int i=0; i<satList.size();i++){
+                Files.write(path, satList.get(i).getBytes(), StandardOpenOption.APPEND);
+                if(i<satList.size()-1)
+                    Files.write(path, "\n".getBytes(), StandardOpenOption.APPEND);
+            }
+        }catch(Exception exception){
+            exception.printStackTrace();
         }
     }
 
