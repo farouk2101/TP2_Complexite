@@ -39,9 +39,9 @@ public class Reader_DIMACS_CNF {
 //        System.out.println("nbVarReal = " + nbVarReal + " nbClauseReal = " + nbClauseReal);
         //Permet d'être sur que le doc est correcte
 //        System.out.println(isTheDocCorrect());
-        for(String line : listOfLines){
+        /*for(String line : listOfLines){
             System.out.println(line);
-        }
+        }*/
         initVariableListFromFile();
     }
 
