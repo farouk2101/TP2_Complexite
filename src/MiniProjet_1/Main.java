@@ -87,6 +87,24 @@ public class Main {
         System.out.println(booleanValue.getValue());
     }
 
+    public static void verifMultiple(int numLigne){
+        Reader_DIMACS_CNF reader_dimacs_cnf = new Reader_DIMACS_CNF("./ressources/DIMACS_CNF.txt");
+        for(int i=0; i<numLigne; i++) {
+            Reader_Affectation_variable readerAffectationVariable = new Reader_Affectation_variable("./ressources/affect_zone.txt", numLigne);
+            BooleanValue booleanValue;
+            //Test si toutes les variables ont été initialisées
+        /*System.out.println();
+        System.out.println(areAllVariablesInit(reader_dimacs_cnf,readerAffectationVariable));*/
+            System.out.println();
+            readerAffectationVariable.afficherListVariableNValues();
+            System.out.println();
+        /*reader_dimacs_cnf.afficherListVar();
+        System.out.println();*/
+            booleanValue = evaluation(reader_dimacs_cnf, readerAffectationVariable);
+            System.out.println(booleanValue.getValue());
+        }
+    }
+
 
 
     public static void main(String args[]){
