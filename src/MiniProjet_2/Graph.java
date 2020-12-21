@@ -17,6 +17,7 @@ public class Graph {
         parse(path, directed);
         genAffect();
         genClause();
+        bruteForce();
     }
 
 
@@ -177,7 +178,7 @@ public class Graph {
 
     public void bruteForce(){
         for (int i=0; i<Math.pow(2, n*k); i++) {
-
+            Main.verifMultiple(i);
         }
     }
 
