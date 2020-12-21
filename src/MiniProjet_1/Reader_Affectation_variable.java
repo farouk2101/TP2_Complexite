@@ -31,6 +31,38 @@ public class Reader_Affectation_variable {
                     }
                 }
             }
+            affectationVariableScanner.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+//        afficherListVariableNValues();
+    }
+
+    public Reader_Affectation_variable(String path, int numLigne){
+        this.affectationVariable = new File(path);
+        try {
+            Scanner affectationVariableScanner = new Scanner(affectationVariable);
+            String choosenLine = "";
+            for (int nbLine = 0; nbLine < numLigne; nbLine++){
+                choosenLine = affectationVariableScanner.nextLine();
+            }
+                String currentVar = "";
+                for (int i = 0; i < choosenLine.length(); i++) {
+                    if (choosenLine.charAt(i) == ' ') {
+                        int variable = getPositifFromVar(currentVar);
+                        boolean value = getValueFromVar(currentVar);
+                        variablesNValues.add(new VarNValue(variable, value));
+                        currentVar = "";
+                    } else {
+                        currentVar = currentVar + choosenLine.charAt(i);
+                        if (i == choosenLine.length() - 1) {
+                            int variable = getPositifFromVar(currentVar);
+                            boolean value = getValueFromVar(currentVar);
+                            variablesNValues.add(new VarNValue(variable, value));
+                        }
+                    }
+                }
+            affectationVariableScanner.close();
         }catch(Exception e){
             e.printStackTrace();
         }
