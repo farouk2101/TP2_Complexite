@@ -14,7 +14,7 @@ public class SudokuToSat {
         grilleSudoku = readFile.getGrille();
         listToPrint = new ArrayList<>();
         initListCell();
-        readFile.writeFile(listToPrint, "./sat.txt", listVar.size());
+        readFile.writeFile(listToPrint, "./ressources/sat.txt", listVar.size());
     }
 
 

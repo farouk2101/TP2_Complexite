@@ -13,7 +13,7 @@ public class Main {
         for (int i = 0; i < test.size();i++){
             test2.add(test);
         }
-        String path = "./src/MiniProjet_3/sudoku.txt";
+        String path = "./ressources/sudoku.txt";
         //ReadFile readFile = new ReadFile(path);
         //readFile.write(test2);
         //readFile.read();
