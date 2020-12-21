@@ -156,8 +156,6 @@ public class Graph {
                 writer.write(comb + "\n");
                 if(i==0){
                     System.out.println(comb);
-                    BufferedWriter out = new BufferedWriter(affectWriter);
-                    out.write(comb);
                     affectWriter.write(comb);
                 }
             } catch (IOException e) {
