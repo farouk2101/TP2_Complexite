@@ -120,10 +120,13 @@ public class Graph {
 
     public void genAffect(){
         FileWriter writer = null;
+        FileWriter affectWriter = null;
         try {
-            writer = new FileWriter("./ressources/Affectation_variable.txt");
+            writer = new FileWriter("./ressources/affect_zone.txt");
+            affectWriter = new FileWriter("./ressources/Affectation_variable.txt");
         } catch (IOException e) {
             e.printStackTrace();
+
         }
         for (int i=0; i<Math.pow(2, n*k); i++) {
             String rep = Integer.toBinaryString(i);
@@ -151,11 +154,29 @@ public class Graph {
             String comb = Arrays.toString(combi).substring(1,Arrays.toString(combi).length()-1).replaceAll(",","");
             try {
                 writer.write(comb + "\n");
+                if(i==0){
+                    System.out.println(comb);
+                    BufferedWriter out = new BufferedWriter(affectWriter);
+                    out.write(comb);
+                    affectWriter.write(comb);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+        try {
+            affectWriter.close();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void bruteForce(){
+        for (int i=0; i<Math.pow(2, n*k); i++) {
+
+        }
     }
 
 
@@ -173,7 +194,7 @@ public class Graph {
             e.printStackTrace();
         }
 
-/*
+        /*
         for(int i = 0;i<k;i++){
             for(int v = 0;v<n;v++){
 
@@ -274,6 +295,5 @@ public class Graph {
             e.printStackTrace();
         }
     }
-
 
 }
