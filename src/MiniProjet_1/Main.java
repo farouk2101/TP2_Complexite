@@ -71,12 +71,9 @@ public class Main {
         return bool;
     }
 
-
-
-    public static void main(String args[]){
-        ArrayList<VarNValue> listVarNValue = new ArrayList<>();
-        Reader_DIMACS_CNF reader_dimacs_cnf = new Reader_DIMACS_CNF("src/MiniProjet_1/DIMACS_CNF.txt");
-        Reader_Affectation_variable readerAffectationVariable = new Reader_Affectation_variable("src/MiniProjet_1/Affectation_variable.txt");
+    public static void verif(){
+        Reader_DIMACS_CNF reader_dimacs_cnf = new Reader_DIMACS_CNF("./ressources/DIMACS_CNF.txt");
+        Reader_Affectation_variable readerAffectationVariable = new Reader_Affectation_variable("./ressources/Affectation_variable.txt");
         BooleanValue booleanValue;
         //Test si toutes les variables ont été initialisées
         /*System.out.println();
@@ -88,6 +85,12 @@ public class Main {
         System.out.println();*/
         booleanValue = evaluation(reader_dimacs_cnf,readerAffectationVariable);
         System.out.println(booleanValue.getValue());
+    }
+
+
+
+    public static void main(String args[]){
+       verif();
 
 
     }
