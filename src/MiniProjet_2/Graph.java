@@ -153,7 +153,10 @@ public class Graph {
 
             String comb = Arrays.toString(combi).substring(1,Arrays.toString(combi).length()-1).replaceAll(",","");
             try {
-                writer.write(comb + "\n");
+                writer.write(comb);
+                if(i<Math.pow(2, n*k)-1){
+                    writer.write("\n");
+                }
                 if(i==0){
                     System.out.println(comb);
                     affectWriter.write(comb);
@@ -171,6 +174,7 @@ public class Graph {
         }
 
     }
+
     public void bruteForce(){
         for (int i=0; i<Math.pow(2, n*k); i++) {
 
@@ -222,11 +226,6 @@ public class Graph {
             }
         }
 
-        try {
-            myWriter.write("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         for (int v=0; v<n; v++) {
             for (int i=0; i<k; i++) {
@@ -241,11 +240,7 @@ public class Graph {
                 }
             }
         }
-        try {
-            myWriter.write("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         for (int i=0; i<k; i++) {
             for (int v=0; v<n; v++) {
                 for (int u=v; u<n; u++) {
@@ -259,11 +254,7 @@ public class Graph {
                 }
             }
         }
-        try {
-            myWriter.write("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         for (int v=0; v<n; v++) {
             for (int u = v; u < n; u++) {
                 if (hasEdge(u, v)) {
@@ -272,17 +263,16 @@ public class Graph {
                         for (int j = 0; j < k; j++) {
                             if (i == j) continue;
                             try {
-                                myWriter.write("-" + (i+1) +""+ (v+1) + " -" + (j+1) +""+ (u+1)+" 0\n");
+                                myWriter.write("-" + (i+1) +""+ (v+1) + " -" + (j+1) +""+ (u+1)+" 0");
+                                if(j<k-2){
+                                    myWriter.write("\n");
+                                }
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
                     }
-                    try {
-                        myWriter.write("\n");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
                 }
             }
         }
