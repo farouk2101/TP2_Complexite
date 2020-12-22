@@ -6,7 +6,6 @@ import java.util.Scanner;
 import MiniProjet_1.Main;
 
 public class Graph {
-    String path;
     private int[][] nodes;
     private int n;
     private int m;

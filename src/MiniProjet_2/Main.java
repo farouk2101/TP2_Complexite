@@ -65,6 +65,10 @@ public class Main {
             brute = true;
 
         if (brute) {
+            System.out.println("Génération des affectations...");
+            start = System.currentTimeMillis();
+            graph.genAffect();
+            System.out.println("Terminé en " + (System.currentTimeMillis() - start) + "ms.");
             System.out.println("Résolution par brute force...");
             start = System.currentTimeMillis();
             graph.bruteForce(outPath);
