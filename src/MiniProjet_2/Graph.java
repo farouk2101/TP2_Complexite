@@ -3,7 +3,6 @@ package MiniProjet_2;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
-import MiniProjet_1.Main;
 
 public class Graph {
     private int[][] nodes;
@@ -112,10 +111,8 @@ public class Graph {
 
     public void genAffect(){
         FileWriter writer = null;
-        FileWriter affectWriter = null;
         try {
             writer = new FileWriter("./ressources/affect_zone.txt");
-            affectWriter = new FileWriter("./ressources/Affectation_variable.txt");
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -149,17 +146,13 @@ public class Graph {
                 if(i<Math.pow(2, n*k)-1){
                     writer.write("\n");
                 }
-                if(i==0){
-                   // System.out.println(comb);
-                    affectWriter.write(comb);
-                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         try {
-            affectWriter.close();
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -169,8 +162,9 @@ public class Graph {
 
     public void bruteForce(String pathClauses){
         for (int i=0; i<Math.pow(2, n*k); i++) {
-             if(Main.verifMultiple(pathClauses, i)){
+             if(MiniProjet_1.Main.verifMultiple(pathClauses, i)){
                  System.out.println("Solution trouvée !");
+
                  return;
              }
         }
