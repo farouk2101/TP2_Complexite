@@ -2,5 +2,7 @@
 5
 # liste d'arêtes : sommet i - sommet j
 0 1
-1 4
-2 3
+1 2
+3 2
+3 4
+2 4
