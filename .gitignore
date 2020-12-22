@@ -1,2 +1,5 @@
 # Project exclude paths
 /out/
+TP2_Complexite.iml
+.idea
+.gitignore
