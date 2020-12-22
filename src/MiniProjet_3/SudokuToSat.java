@@ -7,14 +7,14 @@ public class SudokuToSat {
     private final ArrayList<ArrayList<Integer>> grilleSudoku;
     private final ArrayList<String> listToPrint;
     private final ArrayList<String> listVar;
-    public SudokuToSat(String path){
+    public SudokuToSat(String path, String outPath){
         listVar = new ArrayList<>();
         ReadFile readFile = new ReadFile(path);
         readFile.read();
         grilleSudoku = readFile.getGrille();
         listToPrint = new ArrayList<>();
         initListCell();
-        readFile.writeFile(listToPrint, "./ressources/sat.txt", listVar.size());
+        readFile.writeFile(listToPrint, outPath, listVar.size());
     }
 
 

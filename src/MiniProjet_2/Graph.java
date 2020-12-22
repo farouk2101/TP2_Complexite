@@ -157,11 +157,7 @@ public class Graph {
         System.out.println("Aucune solution.");
     }
 
-
     private int getVarIndex(int i, int v) {
-        if (i+1 > k || v+1 > n ) {
-            System.out.println("i = " + i + " v = " + v);
-        }
         return n*i + v + 1;
     }
 

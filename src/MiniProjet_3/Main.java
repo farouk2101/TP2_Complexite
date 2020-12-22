@@ -1,24 +1,28 @@
 package MiniProjet_3;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String args[]){
 
-        ArrayList<Integer> test = new ArrayList<>();
-        ArrayList<ArrayList<Integer>> test2 = new ArrayList<>();
-        test.add(0);
-        test.add(1);
-        test.add(2);
-        for (int i = 0; i < test.size();i++){
-            test2.add(test);
-        }
+        Scanner sc = new Scanner(System.in);
+        // Choose a path
         String path = "./ressources/sudoku.txt";
-        //ReadFile readFile = new ReadFile(path);
-        //readFile.write(test2);
-        //readFile.read();
-        SudokuToSat sudokuToSat = new SudokuToSat(path);
+        System.out.print("Fichier du sodoku (" + path + ") : ");
+        String inputPath = sc.nextLine();
+        if (!"".equals(inputPath)) path = inputPath;
 
+        // Choose output file
+        String outPath = "./ressources/DIMACS_CNF.txt";
+        System.out.print("Sauvegarder sous (" + outPath + ") : ");
+        String inputOutPath = sc.nextLine();
+        if (!"".equals(inputOutPath)) outPath = inputOutPath;
+
+        Long start = start = System.currentTimeMillis();
+        SudokuToSat sudokuToSat = new SudokuToSat(path, outPath);
+        System.out.println("Terminé en " + (System.currentTimeMillis() - start) + "ms.");
+        System.out.println("Sauvegardé sous " + outPath);
     }
 
 }

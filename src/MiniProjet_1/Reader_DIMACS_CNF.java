@@ -84,7 +84,7 @@ public class Reader_DIMACS_CNF {
     public int wichVarIsIt(String currentVar){
         String recoVarStr = "";
         for (int i = 0; i < currentVar.length() ; i++){
-            if(currentVar.charAt(i) == '-'){
+            if(currentVar.charAt(i) == '-') {
                 i++;
             }
             recoVarStr = recoVarStr + currentVar.charAt(i);

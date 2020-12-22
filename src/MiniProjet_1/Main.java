@@ -3,6 +3,7 @@ package MiniProjet_1;
 import java.io.Reader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
@@ -81,9 +82,9 @@ public class Main {
     }
 
 
-    public static void verif(){
-        Reader_DIMACS_CNF reader_dimacs_cnf = new Reader_DIMACS_CNF("./ressources/DIMACS_CNF.txt");
-        Reader_Affectation_variable readerAffectationVariable = new Reader_Affectation_variable("./ressources/Affectation_variable.txt");
+    public static void verif(String cnfPath, String affPath){
+        Reader_DIMACS_CNF reader_dimacs_cnf = new Reader_DIMACS_CNF(cnfPath);
+        Reader_Affectation_variable readerAffectationVariable = new Reader_Affectation_variable(affPath);
         BooleanValue booleanValue;
         //Test si toutes les variables ont été initialisées
         /*System.out.println();
@@ -94,7 +95,7 @@ public class Main {
         /*reader_dimacs_cnf.afficherListVar();
         System.out.println();*/
         booleanValue = evaluation(reader_dimacs_cnf,readerAffectationVariable);
-        System.out.println(booleanValue.getValue());
+        System.out.println(booleanValue.getValue() ? "Affectations valides." : "Affectations invalides.");
     }
 
     public static boolean verifMultiple(String pathCNF, int numLigne){
@@ -115,7 +116,22 @@ public class Main {
 
 
     public static void main(String args[]){
-       verif();
+        Scanner sc = new Scanner(System.in);
+        // Choose a path
+        String path = "./ressources/DIMACS_CNF.txt";
+        System.out.print("Fichier CNF (" + path + ") : ");
+        String inputPath = sc.nextLine();
+        if (!"".equals(inputPath)) path = inputPath;
+
+        // Choose a path
+        String affPath = "./ressources/Affectation_variable.txt";
+        System.out.print("Fichier Affectation (" + affPath + ") : ");
+        String inputaffPath = sc.nextLine();
+        if (!"".equals(inputaffPath)) affPath = inputaffPath;
+
+        Long start = start = System.currentTimeMillis();
+        verif(path, affPath);
+        System.out.println("Terminé en " + (System.currentTimeMillis() - start) + "ms.");
     }
 
 }
