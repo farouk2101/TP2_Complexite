@@ -65,7 +65,7 @@ public class Main {
             brute = true;
 
         if (brute) {
-            System.out.println("Génération des affectations...");
+            System.out.println("Génération des affectations possibles...");
             start = System.currentTimeMillis();
             graph.genAffect();
             System.out.println("Terminé en " + (System.currentTimeMillis() - start) + "ms.");
