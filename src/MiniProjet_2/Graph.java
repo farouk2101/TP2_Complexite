@@ -6,38 +6,17 @@ import java.util.Scanner;
 import MiniProjet_1.Main;
 
 public class Graph {
+    String path;
     private int[][] nodes;
     private int n;
     private int m;
     private boolean directed;
     private int k;
 
-    public Graph(String path, boolean directed) {
-
-        parse(path, directed);
-        genAffect();
-        genClause();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("-----------------Mode---------------");
-        System.out.println("Normal : 1 ---------- BruteForce : 2");
-        System.out.print("Choisir : ");
-        int a = sc.nextInt();
-        while(a != 1 && a != 2){
-            System.out.println("Réessayer");
-            System.out.println("Normal : 1 ---------- BruteForce : 2 ");
-            System.out.print("Choisir : ");
-            a = sc.nextInt();
-        }
-        if(a == 1){
-            Main.verif();
-        }else{
-            bruteForce();
-        }
-
-    }
+    public Graph() { }
 
 
-    private void set(int n, boolean directed,int k) {
+    private void set(int n, boolean directed, int k) {
         this.directed = directed;
         this.n = n;
         this.k = k;
@@ -85,14 +64,11 @@ public class Graph {
 
 
 
-    private void parse(String path, boolean directed) {
+    public void parse(String path,  boolean directed, int k) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line;
             int n = -1;
-            Scanner sc = new Scanner(System.in);
-            System.out.print("Quel k voulez vous choisir? : ");
-            int k = sc.nextInt();
             while((line = reader.readLine()) != null) {
                 if (line.startsWith("#")) continue;
                 Scanner sr = new Scanner(line);
@@ -192,19 +168,22 @@ public class Graph {
 
     }
 
-    public void bruteForce(){
+    public void bruteForce(String pathClauses){
         for (int i=0; i<Math.pow(2, n*k); i++) {
-             if(Main.verifMultiple(i)){
-                 break;
+             if(Main.verifMultiple(pathClauses, i)){
+                 System.out.println("Solution trouvée !");
+                 return;
              }
         }
+
+        System.out.println("Aucune solution.");
     }
 
 
-    public void genClause(){
+    public void genClause(String outPath){
         FileWriter myWriter = null;
         try {
-            myWriter = new FileWriter("./ressources/DIMACS_CNF.txt");
+            myWriter = new FileWriter(outPath);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -101,7 +101,7 @@ public class Reader_Affectation_variable {
 
     public void afficherListVariableNValues(){
         for(VarNValue varNValue : variablesNValues){
-            System.out.println("Variable : " + varNValue.getVariable() + " Value : " + varNValue.getValue());
+            System.out.println("Variable : " + varNValue.getVariable() + " - valeur : " + (varNValue.getValue() ? "Vrai" : "Faux"));
         }
     }
 

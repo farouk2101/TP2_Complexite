@@ -92,24 +92,28 @@ public class Main {
         System.out.println(booleanValue.getValue());
     }
 
-    public static boolean verifMultiple(int numLigne){
-        Reader_DIMACS_CNF reader_dimacs_cnf = new Reader_DIMACS_CNF("./ressources/DIMACS_CNF.txt");
+    public static boolean verifMultiple(String pathCNF, int numLigne){
+        Reader_DIMACS_CNF reader_dimacs_cnf = new Reader_DIMACS_CNF(pathCNF);
         for(int i=0; i<numLigne; i++) {
-            System.out.println("\nAffectation N°" + numLigne);
+            //System.out.println("\nAffectation N°" + numLigne);
             Reader_Affectation_variable readerAffectationVariable = new Reader_Affectation_variable("./ressources/affect_zone.txt", numLigne);
             BooleanValue booleanValue;
             //Test si toutes les variables ont été initialisées
         /*System.out.println();
         System.out.println(areAllVariablesInit(reader_dimacs_cnf,readerAffectationVariable));*/
-            System.out.println();
+            /*System.out.println();
             readerAffectationVariable.afficherListVariableNValues();
-            System.out.println();
+            System.out.println();*/
         /*reader_dimacs_cnf.afficherListVar();
         System.out.println();*/
             booleanValue = evaluation(reader_dimacs_cnf, readerAffectationVariable);
-            System.out.println("Resultat : " + booleanValue.getValue());
+            //System.out.println("Resultat : " + booleanValue.getValue());
 
-            if (booleanValue.getValue()) return true;
+            if (booleanValue.getValue()) {
+                System.out.println("---- Solution");
+                readerAffectationVariable.afficherListVariableNValues();
+                return true;
+            };
         }
         return false;
     }

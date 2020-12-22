@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReadFile {
 
@@ -66,7 +67,8 @@ public class ReadFile {
 
         Path path = Paths.get(pathName);
         try {
-            this.file = Files.readString(path).split("\n");
+            //this.file = Files.readString(path).split("\n");
+            this.file = Files.readAllLines(path).toArray(new String[0]); // compat java 1.8
             for (int i = 0; i < file.length; i++) {
                 String line[] = file[i].split("");
                 ArrayList<Integer> ligne = new ArrayList<>();
