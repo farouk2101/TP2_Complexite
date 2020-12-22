@@ -1,6 +1,7 @@
 package MiniProjet_1;
 
 import java.io.Reader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main {
@@ -29,15 +30,20 @@ public class Main {
 
     static public BooleanValue evaluation(Reader_DIMACS_CNF reader_dimacs_cnf, Reader_Affectation_variable reader_affectation_variable){
         BooleanValue eval = new BooleanValue(true);
-        BooleanValue bool = new BooleanValue(false);
-        for(ArrayList<String> strArray : reader_dimacs_cnf.getVariableList()){
+        BooleanValue bool;
+        ArrayList<ArrayList<String>> list = reader_dimacs_cnf.getVariableList();
+        for(ArrayList<String> strArray : list){
+            bool = new BooleanValue(false);
             for (String str : strArray){
 //                System.out.println(bool.getValue() + " OU " + evaluer(str, reader_affectation_variable).getValue());
-                bool = BooleanValue.Ou(bool,evaluer(str, reader_affectation_variable));
+                BooleanValue ev = evaluer(str, reader_affectation_variable);
+                bool = BooleanValue.Ou(bool, ev);
+                if (bool.getValue()) break;
 //                System.out.println(bool.getValue());
             }
 //            System.out.println(eval.getValue() + " ET " + bool.getValue());
-            eval = BooleanValue.Et(eval,bool);
+            eval = BooleanValue.Et(eval, bool);
+            if (!eval.getValue()) break;
             bool.setValue(false);
 //            System.out.println(eval.getValue());
 
@@ -94,27 +100,16 @@ public class Main {
 
     public static boolean verifMultiple(String pathCNF, int numLigne){
         Reader_DIMACS_CNF reader_dimacs_cnf = new Reader_DIMACS_CNF(pathCNF);
-        for(int i=0; i<numLigne; i++) {
-            //System.out.println("\nAffectation N°" + numLigne);
-            Reader_Affectation_variable readerAffectationVariable = new Reader_Affectation_variable("./ressources/affect_zone.txt", numLigne);
-            BooleanValue booleanValue;
-            //Test si toutes les variables ont été initialisées
-        /*System.out.println();
-        System.out.println(areAllVariablesInit(reader_dimacs_cnf,readerAffectationVariable));*/
-            /*System.out.println();
-            readerAffectationVariable.afficherListVariableNValues();
-            System.out.println();*/
-        /*reader_dimacs_cnf.afficherListVar();
-        System.out.println();*/
-            booleanValue = evaluation(reader_dimacs_cnf, readerAffectationVariable);
-            //System.out.println("Resultat : " + booleanValue.getValue());
+        Reader_Affectation_variable readerAffectationVariable = new Reader_Affectation_variable("./ressources/temp_affect_zone.txt", numLigne);
 
-            if (booleanValue.getValue()) {
-                System.out.println("---- Solution");
-                readerAffectationVariable.afficherListVariableNValues();
-                return true;
-            };
+        BooleanValue booleanValue = evaluation(reader_dimacs_cnf, readerAffectationVariable);
+
+        if (booleanValue.getValue()) {
+            System.out.println("---- Solution");
+            readerAffectationVariable.afficherListVariableNValues();
+            return true;
         }
+
         return false;
     }
 
@@ -122,8 +117,6 @@ public class Main {
 
     public static void main(String args[]){
        verif();
-
-
     }
 
 }

@@ -61,8 +61,6 @@ public class Graph {
         return m;
     }
 
-
-
     public void parse(String path,  boolean directed, int k) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
@@ -112,54 +110,35 @@ public class Graph {
 
     public void genAffect(){
         FileWriter writer = null;
-        FileWriter affectWriter = null;
         try {
-            writer = new FileWriter("./ressources/affect_zone.txt");
-            affectWriter = new FileWriter("./ressources/Affectation_variable.txt");
+            writer = new FileWriter("./ressources/temp_affect_zone.txt");
         } catch (IOException e) {
             e.printStackTrace();
-
         }
+
         for (int i=0; i<Math.pow(2, n*k); i++) {
             String rep = Integer.toBinaryString(i);
-            String[] combi = new String[n*k];
-            Arrays.fill(combi, "0");
+            int[] combi = new int[n*k];
+            Arrays.fill(combi, 0);
             for (int j = 0; j<rep.length(); j++) {
-                combi[combi.length - rep.length() + j] = String.valueOf(Integer.parseInt("" + rep.charAt(j)));;
+                combi[combi.length - rep.length() + j] = Integer.parseInt("" + rep.charAt(j));;
             }
 
             // traduction
+            StringBuilder line = new StringBuilder();
+            for (int j = 0; j < combi.length; j++) {
+                int aff = combi[j] == 1 ? j + 1 : -(j + 1);
+                line.append(aff + " ");
+            }
 
-                int j = 0;
-                int v = 0;
-            for(int p = 0;p<combi.length;p++){
-                combi[p] = combi[p].equals("1") ? (j+1)+""+(v+1) : -(j+1)+""+(v+1);
-                j++;
-                if(j == k)
-                    j = 0;
-                v++;
-                if(v == n)
-                    v=0;
-
-                }
-
-            String comb = Arrays.toString(combi).substring(1,Arrays.toString(combi).length()-1).replaceAll(",","");
             try {
-                writer.write(comb);
-                if(i<Math.pow(2, n*k)-1){
-                    writer.write("\n");
-                }
-                if(i==0){
-                   // System.out.println(comb);
-                    affectWriter.write(comb);
-                }
+                writer.write(line + "\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         try {
-            affectWriter.close();
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -179,78 +158,45 @@ public class Graph {
     }
 
 
+    private int getVarIndex(int i, int v) {
+        if (i+1 > k || v+1 > n ) {
+            System.out.println("i = " + i + " v = " + v);
+        }
+        return n*i + v + 1;
+    }
+
     public void genClause(String outPath){
-        FileWriter myWriter = null;
-        try {
-            myWriter = new FileWriter(outPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        int nbclauses=(k + n*(k-1)+ n*2*k+(k-1)*k*3);
-        try {
-            myWriter.write("p cnf " + n*k + " " + nbclauses);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        /*
-        for(int i = 0;i<k;i++){
-            for(int v = 0;v<n;v++){
-
-                System.out.println("x_" +i+"-v"+v);
-
-            }
-        } */
-
-        try {
-            myWriter.write("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        StringBuilder clauses = new StringBuilder();
+        int clauseCount = 0;
         for (int i = 0; i<k; i++) {
             String clause = "";
             for (int v=0; v<n; v++) {
-                clause += (i+1)+""+(v+1)+" ";
-                //clause += "x_i"+i+"-v"+v+" v";
+                clause += getVarIndex(i, v) +" ";
             }
 
             clause = clause.substring(0, clause.length()-1);
-            try {
-                myWriter.write(clause +" 0\n");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            clauses.append(clause + " 0\n");
+            clauseCount++;
         }
-
 
         for (int v=0; v<n; v++) {
             for (int i=0; i<k; i++) {
-                for (int j=i; j<k; j++) {
-                    if (i==j) continue;
-                    try {
-                        myWriter.write("-"+(i+1)+""+(v+1) +" -"+(j+1)+""+(v+1)+" 0\n");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //myWriter.write("¬x_i"+i+"-v"+v +" v ¬x_i"+j+"-v"+v);
+                for (int j=i+1; j<k; j++) {
+                    clauses.append("-"+ getVarIndex(i, v) +" -"+getVarIndex(j, v)+" 0\n");
+                    clauseCount++;
                 }
             }
         }
 
         for (int i=0; i<k; i++) {
             for (int v=0; v<n; v++) {
-                for (int u=v; u<n; u++) {
-                    if (u==v) continue;
-                    try {
-                        myWriter.write("-"+(i+1)+""+(v+1)+" "+"-"+(i+1)+""+(u+1)+" 0\n");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //myWriter.write("¬x_i${i}-v${v} v ¬x_i${i}-v${u} ");
+                for (int u=v+1; u<n; u++) {
+                    clauses.append("-"+getVarIndex(i, v)+" "+"-"+getVarIndex(i, u)+" 0\n");
+                    clauseCount++;
                 }
             }
         }
+
 
         for (int v=0; v<n; v++) {
             for (int u = v; u < n; u++) {
@@ -258,23 +204,20 @@ public class Graph {
 
                     for (int i = 0; i < k; i++) {
                         for (int j = 0; j < k; j++) {
-                            if (i == j) continue;
-                            try {
-                                myWriter.write("-" + (i+1) +""+ (v+1) + " -" + (j+1) +""+ (u+1)+" 0");
-                                if(j<k-2){
-                                    myWriter.write("\n");
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            clauses.append("-" + getVarIndex(i, v) + " -" + getVarIndex(j, u)+" 0\n");
+                            clauseCount++;
                         }
                     }
                 }
             }
         }
+        clauses.deleteCharAt(clauses.length() - 1);
 
         try {
-            myWriter.close();
+            FileWriter writer = new FileWriter(outPath);
+            writer.write("p cnf " + n*k + " " + clauseCount + "\n");
+            writer.write(clauses.toString());
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

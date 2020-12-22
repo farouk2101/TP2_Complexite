@@ -132,16 +132,10 @@ public class Reader_DIMACS_CNF {
         int i = 0;
         String currentVar = "";
         ArrayList<String> arrTempo = new ArrayList<>();
-        while (currentLine.charAt(i) != '0'){
-            if(currentLine.charAt(i) == ' '){
-                arrTempo.add(currentVar);
-                currentVar = "";
-                i++;
-            }
-            else{
-                currentVar = currentVar + currentLine.charAt(i);
-                i++;
-            }
+        Scanner sc = new Scanner(currentLine);
+        int var;
+        while ((var = sc.nextInt()) != 0){
+            arrTempo.add(Integer.toString(var));
         }
         variableList.add(arrTempo);
     }

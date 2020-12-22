@@ -14,6 +14,7 @@ public class Reader_Affectation_variable {
         try {
             Scanner affectationVariableScanner = new Scanner(affectationVariable);
             String onlyLine = affectationVariableScanner.nextLine();
+            raw = onlyLine;
             String currentVar = "";
             for(int i = 0; i < onlyLine.length(); i++){
                 if(onlyLine.charAt(i) == ' '){
@@ -38,6 +39,12 @@ public class Reader_Affectation_variable {
 //        afficherListVariableNValues();
     }
 
+    private String raw;
+
+    public String getRaw() {
+        return raw;
+    }
+
     public Reader_Affectation_variable(String path, int numLigne){
         this.affectationVariable = new File(path);
         try {
@@ -47,6 +54,7 @@ public class Reader_Affectation_variable {
                 choosenLine = affectationVariableScanner.nextLine();
             }
                 String currentVar = "";
+                raw = choosenLine;
                 for (int i = 0; i < choosenLine.length(); i++) {
                     if (choosenLine.charAt(i) == ' ') {
                         int variable = getPositifFromVar(currentVar);
