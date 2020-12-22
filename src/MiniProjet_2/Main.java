@@ -64,11 +64,13 @@ public class Main {
         if (!"".equals(inputBrute) && (inputBrute.toLowerCase().equals("o") || inputBrute.toLowerCase().equals("oui") || inputBrute.equals("1")))
             brute = true;
 
-        if (!brute) return;
+        if (brute) {
+            System.out.println("Résolution par brute force...");
+            start = System.currentTimeMillis();
+            graph.bruteForce(outPath);
+            System.out.println("Terminé en " + (System.currentTimeMillis() - start) + "ms.");
 
-        System.out.println("Résolution par brute force...");
-        start = System.currentTimeMillis();
-        graph.bruteForce(outPath);
-        System.out.println("Terminé en " + (System.currentTimeMillis() - start) + "ms.");
+            return;
+        }
     }
 }
