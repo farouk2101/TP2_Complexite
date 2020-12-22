@@ -129,13 +129,11 @@ public class Reader_DIMACS_CNF {
     }
 
     public void addToVariableList(String currentLine){
-        int i = 0;
-        String currentVar = "";
         ArrayList<String> arrTempo = new ArrayList<>();
         Scanner sc = new Scanner(currentLine);
-        int var;
-        while ((var = sc.nextInt()) != 0){
-            arrTempo.add(Integer.toString(var));
+        String var;
+        while (!(var = sc.next()).equals("0")){
+            arrTempo.add(var);
         }
         variableList.add(arrTempo);
     }
