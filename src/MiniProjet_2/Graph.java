@@ -17,7 +17,23 @@ public class Graph {
         parse(path, directed);
         genAffect();
         genClause();
-        bruteForce();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("-----------------Mode---------------");
+        System.out.println("Normal : 1 ---------- BruteForce : 2");
+        System.out.print("Choisir : ");
+        int a = sc.nextInt();
+        while(a != 1 && a != 2){
+            System.out.println("Réessayer");
+            System.out.println("Normal : 1 ---------- BruteForce : 2 ");
+            System.out.print("Choisir : ");
+            a = sc.nextInt();
+        }
+        if(a == 1){
+            Main.verif();
+        }else{
+            bruteForce();
+        }
+
     }
 
 
@@ -159,7 +175,7 @@ public class Graph {
                     writer.write("\n");
                 }
                 if(i==0){
-                    System.out.println(comb);
+                   // System.out.println(comb);
                     affectWriter.write(comb);
                 }
             } catch (IOException e) {
@@ -273,7 +289,6 @@ public class Graph {
                             }
                         }
                     }
-
                 }
             }
         }
