@@ -39,7 +39,6 @@ public class Main {
                 BooleanValue ev = evaluer(str, reader_affectation_variable);
                 bool = BooleanValue.Ou(bool, ev);
                 if (bool.getValue()) break;
-//                System.out.println(bool.getValue());
             }
 //            System.out.println(eval.getValue() + " ET " + bool.getValue());
             eval = BooleanValue.Et(eval, bool);
