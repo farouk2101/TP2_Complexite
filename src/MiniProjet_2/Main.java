@@ -3,26 +3,6 @@ package MiniProjet_2;
 import java.util.Scanner;
 
 public class Main {
-
-    /*parse(path, directed);
-        genAffect();
-        genClause();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("-----------------Mode---------------");
-        System.out.println("Output CNF to file : 1 ---------- BruteForce : 2");
-        System.out.print("Choisir : ");
-        int a = sc.nextInt();
-        while(a != 1 && a != 2){
-            System.out.println("Réessayer");
-            System.out.println("Normal : 1 ---------- BruteForce : 2 ");
-            System.out.print("Choisir : ");
-            a = sc.nextInt();
-        }
-        if(a == 1){
-            //Main.verif();
-        }else{
-            bruteForce();
-        }*/
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
